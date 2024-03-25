@@ -1,5 +1,6 @@
 using Ryujinx.Ava.Common.Locale;
 using Ryujinx.UI.Common;
+using Ryujinx.UI.Common.Configuration;
 using Ryujinx.UI.Common.Helper;
 using System.Threading.Tasks;
 
@@ -68,6 +69,10 @@ namespace Ryujinx.Ava.UI.Helpers
 
         public static async Task ShowUserErrorDialog(UserError error)
         {
+            if (error == UserError.NoKeys && ConfigurationState.Instance.IgnoreKeysWarning)
+            {
+                return;
+            }
             string errorCode = GetErrorCode(error);
 
             bool isInSetupGuide = IsCoveredBySetupGuide(error);

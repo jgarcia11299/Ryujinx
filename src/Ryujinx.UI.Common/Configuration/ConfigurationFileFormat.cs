@@ -15,7 +15,7 @@ namespace Ryujinx.UI.Common.Configuration
         /// <summary>
         /// The current version of the file format
         /// </summary>
-        public const int CurrentVersion = 49;
+        public const int CurrentVersion = 50;
 
         /// <summary>
         /// Version of the configuration file format
@@ -161,6 +161,11 @@ namespace Ryujinx.UI.Common.Configuration
         /// Show "Confirm Exit" Dialog
         /// </summary>
         public bool ShowConfirmExit { get; set; }
+
+        /// <summary>
+        /// Allows the initial Missing prod.keys warning to be skipped
+        /// </summary>
+        public bool IgnoreKeysWarning { get; set; }
 
         /// <summary>
         /// Whether to hide cursor on idle, always or never

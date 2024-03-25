@@ -92,6 +92,7 @@
   "SettingsTabGeneralEnableDiscordRichPresence": "Enable Discord Rich Presence",
   "SettingsTabGeneralCheckUpdatesOnLaunch": "Check for Updates on Launch",
   "SettingsTabGeneralShowConfirmExitDialog": "Show \"Confirm Exit\" Dialog",
+  "SettingsTabGeneralIgnoreKeysWarning": "Ignores Warning At Startup Requiring Prod.Keys",
   "SettingsTabGeneralHideCursor": "Hide Cursor:",
   "SettingsTabGeneralHideCursorNever": "Never",
   "SettingsTabGeneralHideCursorOnIdle": "On Idle",
