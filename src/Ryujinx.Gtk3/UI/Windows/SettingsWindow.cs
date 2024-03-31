@@ -53,7 +53,6 @@ namespace Ryujinx.UI.Windows
         [GUI] CheckButton _discordToggle;
         [GUI] CheckButton _checkUpdatesToggle;
         [GUI] CheckButton _showConfirmExitToggle;
-        [GUI] CheckButton _ignoreKeysWarningToggle;
         [GUI] RadioButton _hideCursorNever;
         [GUI] RadioButton _hideCursorOnIdle;
         [GUI] RadioButton _hideCursorAlways;
@@ -229,11 +228,6 @@ namespace Ryujinx.UI.Windows
             if (ConfigurationState.Instance.ShowConfirmExit)
             {
                 _showConfirmExitToggle.Click();
-            }
-
-            if (ConfigurationState.Instance.IgnoreKeysWarning)
-            {
-                _ignoreKeysWarningToggle.Click();
             }
 
             switch (ConfigurationState.Instance.HideCursor.Value)
@@ -633,7 +627,6 @@ namespace Ryujinx.UI.Windows
             ConfigurationState.Instance.EnableDiscordIntegration.Value = _discordToggle.Active;
             ConfigurationState.Instance.CheckUpdatesOnStart.Value = _checkUpdatesToggle.Active;
             ConfigurationState.Instance.ShowConfirmExit.Value = _showConfirmExitToggle.Active;
-            ConfigurationState.Instance.IgnoreKeysWarning.Value = _ignoreKeysWarningToggle.Active;
             ConfigurationState.Instance.HideCursor.Value = hideCursor;
             ConfigurationState.Instance.Graphics.EnableVsync.Value = _vSyncToggle.Active;
             ConfigurationState.Instance.Graphics.EnableShaderCache.Value = _shaderCacheToggle.Active;

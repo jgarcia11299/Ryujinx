@@ -73,22 +73,42 @@ namespace Ryujinx.Ava.UI.Helpers
             {
                 return;
             }
+            
             string errorCode = GetErrorCode(error);
 
             bool isInSetupGuide = IsCoveredBySetupGuide(error);
 
             string setupButtonLabel = isInSetupGuide ? LocaleManager.Instance[LocaleKeys.OpenSetupGuideMessage] : "";
 
-            var result = await ContentDialogHelper.CreateInfoDialog(
-                LocaleManager.Instance.UpdateAndGetDynamicValue(LocaleKeys.DialogUserErrorDialogMessage, errorCode, GetErrorTitle(error)),
-                GetErrorDescription(error) + (isInSetupGuide
-                    ? LocaleManager.Instance[LocaleKeys.DialogUserErrorDialogInfoMessage]
-                    : ""), setupButtonLabel, LocaleManager.Instance[LocaleKeys.InputDialogOk],
-                LocaleManager.Instance.UpdateAndGetDynamicValue(LocaleKeys.DialogUserErrorDialogTitle, errorCode));
-
-            if (result == UserResult.Ok)
+            if (error == UserError.NoKeys)
             {
-                OpenHelper.OpenUrl(GetSetupGuideUrl(error));
+                var result = await ContentDialogHelper.CreateWarningDialog(
+                    LocaleManager.Instance.UpdateAndGetDynamicValue(LocaleKeys.DialogUserErrorDialogMessage, errorCode, GetErrorTitle(error)),
+                    GetErrorDescription(error) + (isInSetupGuide
+                        ? LocaleManager.Instance[LocaleKeys.DialogUserErrorDialogInfoMessage]
+                        : ""), setupButtonLabel, LocaleManager.Instance[LocaleKeys.InputDialogOk],
+                    LocaleManager.Instance[LocaleKeys.SettingsTabGeneralIgnoreKeysWarning],
+                    "IgnoreKeysWarning",
+                    LocaleManager.Instance.UpdateAndGetDynamicValue(LocaleKeys.DialogUserErrorDialogTitle, errorCode));
+
+                if (result == UserResult.Ok)
+                {
+                    OpenHelper.OpenUrl(GetSetupGuideUrl(error));
+                }
+            }
+            else
+            {
+                var result = await ContentDialogHelper.CreateInfoDialog(
+                    LocaleManager.Instance.UpdateAndGetDynamicValue(LocaleKeys.DialogUserErrorDialogMessage, errorCode, GetErrorTitle(error)),
+                    GetErrorDescription(error) + (isInSetupGuide
+                        ? LocaleManager.Instance[LocaleKeys.DialogUserErrorDialogInfoMessage]
+                        : ""), setupButtonLabel, LocaleManager.Instance[LocaleKeys.InputDialogOk],
+                    LocaleManager.Instance.UpdateAndGetDynamicValue(LocaleKeys.DialogUserErrorDialogTitle, errorCode));
+
+                if (result == UserResult.Ok)
+                {
+                    OpenHelper.OpenUrl(GetSetupGuideUrl(error));
+                }
             }
         }
     }

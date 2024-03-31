@@ -92,7 +92,7 @@
   "SettingsTabGeneralEnableDiscordRichPresence": "Enable Discord Rich Presence",
   "SettingsTabGeneralCheckUpdatesOnLaunch": "Check for Updates on Launch",
   "SettingsTabGeneralShowConfirmExitDialog": "Show \"Confirm Exit\" Dialog",
-  "SettingsTabGeneralIgnoreKeysWarning": "Ignores Warning At Startup Requiring Prod.Keys",
+  "SettingsTabGeneralIgnoreKeysWarning": "Ignore Warning At Startup Requiring Prod.Keys \nNOTE: This does not bypass Switch Games' requirement of keys and is only for homebrew development",
   "SettingsTabGeneralHideCursor": "Hide Cursor:",
   "SettingsTabGeneralHideCursorNever": "Never",
   "SettingsTabGeneralHideCursorOnIdle": "On Idle",

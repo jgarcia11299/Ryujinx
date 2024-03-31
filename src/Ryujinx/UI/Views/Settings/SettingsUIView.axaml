@@ -36,9 +36,6 @@
                     <CheckBox IsChecked="{Binding ShowConfirmExit}">
                         <TextBlock Text="{locale:Locale SettingsTabGeneralShowConfirmExitDialog}" />
                     </CheckBox>
-                    <CheckBox IsChecked="{Binding IgnoreKeysWarning}">
-                        <TextBlock Text="{locale:Locale SettingsTabGeneralIgnoreKeysWarning}" />
-                    </CheckBox>
                     <StackPanel Margin="0, 15, 0, 0" Orientation="Horizontal">
                         <TextBlock VerticalAlignment="Center"
                                    Text="{locale:Locale SettingsTabGeneralHideCursor}"

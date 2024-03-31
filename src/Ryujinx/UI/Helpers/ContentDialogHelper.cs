@@ -84,6 +84,24 @@ namespace Ryujinx.Ava.UI.Helpers
             return await ShowContentDialog(title, content, primaryButton, secondaryButton, closeButton, primaryButtonResult, deferResetEvent, deferCloseAction);
         }
 
+        public async static Task<UserResult> ShowTextDialogWithCheck(
+            string title,
+            string primaryText,
+            string secondaryText,
+            string primaryButton,
+            string secondaryButton,
+            string closeButton,
+            string warningText,
+            string warningName,
+            int iconSymbol,
+            UserResult primaryButtonResult = UserResult.Ok,
+            ManualResetEvent deferResetEvent = null,
+            TypedEventHandler<ContentDialog, ContentDialogButtonClickEventArgs> deferCloseAction = null)
+        {
+            Grid content = CreateWarningContent(primaryText, secondaryText, warningText, warningName, iconSymbol);
+
+            return await ShowContentDialog(title, content, primaryButton, secondaryButton, closeButton, primaryButtonResult, deferResetEvent, deferCloseAction);
+        }
         public async static Task<UserResult> ShowDeferredContentDialog(
             StyleableWindow window,
             string title,
@@ -194,6 +212,65 @@ namespace Ryujinx.Ava.UI.Helpers
             return content;
         }
 
+        private static Grid CreateWarningContent(string primaryText, string secondaryText, string warningText, string warningName, int symbol)
+        {
+            Grid content = new()
+            {
+                RowDefinitions = new RowDefinitions { new(), new(), new() },
+                ColumnDefinitions = new ColumnDefinitions { new(GridLength.Auto), new() },
+
+                MinHeight = 80,
+            };
+
+            SymbolIcon icon = new()
+            {
+                Symbol = (Symbol)symbol,
+                Margin = new Thickness(10),
+                FontSize = 40,
+                VerticalAlignment = VerticalAlignment.Center,
+            };
+
+            Grid.SetColumn(icon, 0);
+            Grid.SetRowSpan(icon, 2);
+            Grid.SetRow(icon, 0);
+
+            TextBlock primaryLabel = new()
+            {
+                Text = primaryText,
+                Margin = new Thickness(5),
+                TextWrapping = TextWrapping.Wrap,
+                MaxWidth = 450,
+            };
+
+            TextBlock secondaryLabel = new()
+            {
+                Text = secondaryText,
+                Margin = new Thickness(5),
+                TextWrapping = TextWrapping.Wrap,
+                MaxWidth = 450,
+            };
+
+            CheckBox checkBoxLabel = new()
+            {
+                Content = warningText,
+                Command = MiniCommand.Create(() => _contentDialogOverlayWindow.ToggleWarning(warningName)),
+            };
+
+            Grid.SetColumn(primaryLabel, 1);
+            Grid.SetColumn(secondaryLabel, 1);
+            Grid.SetColumn(checkBoxLabel, 1);
+            Grid.SetRow(primaryLabel, 0);
+            Grid.SetRow(secondaryLabel, 1);
+            Grid.SetRow(checkBoxLabel, 2);
+
+            content.Children.Add(icon);
+            content.Children.Add(primaryLabel);
+            content.Children.Add(secondaryLabel);
+            content.Children.Add(checkBoxLabel);
+
+            return content;
+        }
+
         public static async Task<UserResult> CreateInfoDialog(
             string primary,
             string secondaryText,
@@ -208,6 +285,27 @@ namespace Ryujinx.Ava.UI.Helpers
                 acceptButton,
                 "",
                 closeButton,
+                (int)Symbol.Important);
+        }
+
+        public static async Task<UserResult> CreateWarningDialog(
+            string primary,
+            string secondaryText,
+            string acceptButton,
+            string closeButton,
+            string warningText,
+            string warningName,
+            string title)
+        {
+            return await ShowTextDialogWithCheck(
+                title,
+                primary,
+                secondaryText,
+                acceptButton,
+                "",
+                closeButton,
+                warningText,
+                warningName,
                 (int)Symbol.Important);
         }
 
